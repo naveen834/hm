@@ -26,7 +26,7 @@ const Game = ({ name, released, image, id }) => {
       layoutId={stringPathId}
       onClick={loadDetailHandler}
     >
-      <Link to={`/game/${id.read}`}>
+      <Link to={`/game/${id}`}>
         <motion.h3 layoutId={`title ${stringPathId}`}>{name}</motion.h3>
         <p>{released}</p>
         <motion.img
