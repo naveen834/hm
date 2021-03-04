@@ -28,7 +28,7 @@ const Nav = () => {
     <StyledNav variants={fadeIn} initial="hidden" animate="show">
       <Logo onClick={clearSearched}>
         <img src={logo} alt="logo" />
-        <h1>Ignite</h1>
+        <H1>Game Addict</H1>
       </Logo>
       <form className="search">
         <input value={textInput} onChange={inputHandler} type="text" />
@@ -40,6 +40,16 @@ const Nav = () => {
     </StyledNav>
   );
 };
+
+const H1 = styled(motion.div)`
+  background: linear-gradient(to right, #ff2626, #ff0101);
+  display: flex;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: bold;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+`;
 
 const StyledNav = styled(motion.nav)`
   padding: 3rem 5rem;
