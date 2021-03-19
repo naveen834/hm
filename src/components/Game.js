@@ -1,22 +1,16 @@
+import { motion } from 'framer-motion';
 import React from 'react';
+import { Link } from 'react-router-dom';
 //Styling and Animation
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-//Redux
-import { useDispatch } from 'react-redux';
-import { loadDetail } from '../actions/detailAction';
-import { Link } from 'react-router-dom';
-import { smallImage } from '../util';
+// import { useDispatch } from 'react-redux';
+// import { loadDetail } from '../actions/detailAction';
 import { popup } from '../animations';
+//Redux
+import { smallImage } from '../util';
 
-const Game = ({ name, released, image, id }) => {
+const Game = ({ name, released, image, id, onClick }) => {
   const stringPathId = id.toString();
-  //Load Detail Handler
-  const dispatch = useDispatch();
-  const loadDetailHandler = () => {
-    document.body.style.overflow = 'hidden';
-    dispatch(loadDetail(id));
-  };
 
   return (
     <StyledGame
@@ -24,7 +18,7 @@ const Game = ({ name, released, image, id }) => {
       initial="hidden"
       animate="show"
       layoutId={stringPathId}
-      onClick={loadDetailHandler}
+      onClick={onClick}
     >
       <Link to={`/game/${id}`}>
         <motion.h3 layoutId={`title ${stringPathId}`}>{name}</motion.h3>

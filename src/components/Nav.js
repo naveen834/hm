@@ -1,24 +1,39 @@
-import React, { useState } from 'react';
+import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
+
+import React, { useReducer, useState } from 'react';
 //Animation
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
-import logo from '../img/logo.svg';
+import { useLocation } from 'react-router-dom';
+
 //Redux and Routes
 import { fetchSearch } from '../actions/gamesAction';
-import { useDispatch } from 'react-redux';
 import { fadeIn } from '../animations';
+import Game from '../components/Game';
+import logo from '../img/logo.svg';
+// import { useDispatch } from 'react-redux';
+import gamesReducer from '../reducers/gamesReducer';
+import detailReducer, { initialState } from '../reducers/detailReducer';
+import { loadDetail } from '../actions/detailAction';
+import GameDetail from '../components/GameDetail';
 
 const Nav = () => {
-  const dispatch = useDispatch();
+  const [state, dispatch] = useReducer(gamesReducer, {});
   const [textInput, setTextInput] = useState('');
   const [loading, isLoading] = useState(false);
+  const location = useLocation();
+  const pathId = location.pathname.split('/')[2];
+  const [instate, dispatch2] = useReducer(detailReducer, initialState);
 
+  const loadDetailHandler = (e) => {
+    document.body.style.overflow = 'hidden';
+    loadDetail(e, dispatch2);
+  };
   const inputHandler = (e) => {
     setTextInput(e.target.value);
   };
   const submitSearch = (e) => {
     e.preventDefault();
-    dispatch(fetchSearch(textInput, isLoading));
+    fetchSearch(textInput, isLoading, dispatch);
     setTextInput('');
   };
   const clearSearched = () => {
@@ -26,17 +41,50 @@ const Nav = () => {
   };
   return (
     <StyledNav variants={fadeIn} initial="hidden" animate="show">
-      <Logo onClick={clearSearched}>
-        <img src={logo} alt="logo" />
-        <H1>Game Addict</H1>
-      </Logo>
-      <form className="search">
-        <input value={textInput} onChange={inputHandler} type="text" />
-        <button onClick={submitSearch} type="submit">
-          Search
-        </button>
-        {loading ? <Loading>loading...</Loading> : ''}
-      </form>
+      <AnimateSharedLayout type="crossfade">
+        <AnimatePresence>
+          {instate.game.id
+            ? pathId === instate.game.id.toString() && (
+                <GameDetail pathId={pathId} instate={instate} />
+              )
+            : ''}
+        </AnimatePresence>
+        <Logo onClick={clearSearched}>
+          <img src={logo} alt="logo" />
+          <H1>Game Addict</H1>
+        </Logo>
+        <form className="search">
+          <input
+            value={textInput}
+            onChange={(e) => setTimeout(inputHandler(e), 1000)}
+            type="text"
+          />
+          <button onClick={(e) => submitSearch(e)} type="submit">
+            Search
+          </button>
+          {loading ? (
+            <Loading>loading...</Loading>
+          ) : state.searched && state.searched.length ? (
+            <div className="searched" style={{ marginTop: '4em' }}>
+              <h2 style={{ textAlign: 'left' }}>Searched Games</h2>
+              <Games style={{ marginTop: '4em' }}>
+                {state.searched.map((game) => (
+                  <Game
+                    name={game.name}
+                    released={game.released}
+                    id={game.id}
+                    image={game.background_image}
+                    key={game.id}
+                    onClick={() => loadDetailHandler(game.id)}
+                  />
+                ))}
+              </Games>
+            </div>
+          ) : (
+            ''
+          )}
+        </form>
+      </AnimateSharedLayout>
     </StyledNav>
   );
 };
@@ -94,6 +142,17 @@ const Loading = styled(motion.div)`
   color: white;
   font-weight: 700;
   letter-spacing: 2px;
+`;
+const Games = styled(motion.div)`
+  display: grid;
+  @media only screen and (min-width: 540px) {
+    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  }
+  grid-column-gap: 3rem;
+  grid-row-gap: 5rem;
+  @media only screen and (max-width: 310px) {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  }
 `;
 
 export default Nav;

@@ -3,7 +3,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { motion } from 'framer-motion';
 //Redux
-import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { smallImage } from '../util';
 //IMAGES
@@ -16,7 +15,7 @@ import gamepad from '../img/gamepad.svg';
 //Star Images
 import starEmpty from '../img/star-empty.png';
 import starFull from '../img/star-full.png';
-const GameDetail = ({ pathId }) => {
+const GameDetail = ({ pathId, instate }) => {
   const history = useHistory();
 
   //Exit Detail
@@ -59,8 +58,8 @@ const GameDetail = ({ pathId }) => {
     }
   };
 
-  //Data
-  const { screen, game, isLoading } = useSelector((state) => state.detail);
+  //Data58751
+  const { screen, game, isLoading } = instate;
   return (
     <>
       {isLoading ? (

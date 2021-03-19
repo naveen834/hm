@@ -1,36 +1,33 @@
-import React, { useEffect, useState } from 'react';
-//Components and pages
-//Styles
-import GlobalStyles from './components/GlobalStyles';
+import React, { useEffect, useState, useReducer } from 'react';
 //Router
 import { Route } from 'react-router-dom';
+import { loadGames } from './actions/gamesAction';
+import gamesReducer, { initState } from './reducers/gamesReducer';
+//Components and pages
+//Styles
+// import { useDispatch } from 'react-redux';
+import GlobalStyles from './components/GlobalStyles';
 import Nav from './components/Nav';
 // const Home = React.lazy(() => import('./pages/Home'));
 import Home from './pages/Home';
-import { loadGames } from './actions/gamesAction';
-import { useDispatch } from 'react-redux';
 
 function App() {
+  const [loading, setLoading] = useState(false);
+  const [state, dispatch] = useReducer(gamesReducer, initState);
+  // const dispatch = useDispatch();
+  useEffect(() => {
+    loadGames(setLoading, dispatch);
+  }, [dispatch]);
+  // const { data, error } = useSWR(loadGames(setLoading));
   return (
     <div className="App">
       <GlobalStyles />
       <Route path={['/game/:id', '/']}>
         <Nav />
-        <HomeDef />
+        <Home loading={loading} state={state} />
       </Route>
     </div>
   );
-}
-
-function HomeDef() {
-  const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(loadGames(setLoading));
-  }, [dispatch]);
-  // const { data, error } = useSWR(loadGames(setLoading));
-
-  return <Home loading={loading} />;
 }
 
 export default App;

@@ -4,10 +4,9 @@ import {
   searchGameURL,
   upcomingGamesURL,
 } from '../api';
-
 //Action Creator
 
-export const loadGames = (setLoading) => async (dispatch) => {
+export const loadGames = async (setLoading, dispatch) => {
   //FETCH AXIOS
   setLoading(true);
   const popularData = fetch(popularGamesURL());
@@ -35,7 +34,7 @@ export const loadGames = (setLoading) => async (dispatch) => {
   // );
 };
 
-export const fetchSearch = (game_name, isLoading) => async (dispatch) => {
+export const fetchSearch = async (game_name, isLoading, dispatch) => {
   isLoading(true);
   await fetch(searchGameURL(game_name))
     .then((responses) => responses.json())

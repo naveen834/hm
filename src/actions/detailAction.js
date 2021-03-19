@@ -1,6 +1,6 @@
 import { gameDetailsURL, gameScreenshotURL } from '../api';
 
-export const loadDetail = (id) => async (dispatch) => {
+export const loadDetail = async (id, dispatch) => {
   dispatch({
     type: 'LOADING_DETAIL',
   });
