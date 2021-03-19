@@ -43,11 +43,13 @@ const Nav = () => {
     <StyledNav variants={fadeIn} initial="hidden" animate="show">
       <AnimateSharedLayout type="crossfade">
         <AnimatePresence>
-          {instate.game.id
-            ? pathId === instate.game.id.toString() && (
-                <GameDetail pathId={pathId} instate={instate} />
-              )
-            : ''}
+          {!pathId && instate.game.id && ''}
+
+          {instate.game.id && pathId === instate.game.id.toString() ? (
+            <GameDetail pathId={pathId} instate={instate} />
+          ) : (
+            ''
+          )}
         </AnimatePresence>
         <Logo onClick={clearSearched}>
           <img src={logo} alt="logo" />

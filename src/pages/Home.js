@@ -24,11 +24,14 @@ const Home = ({ loading, state }) => {
     <GameList variants={fadeIn} initial="hidden" animate="show">
       <AnimateSharedLayout type="crossfade">
         <AnimatePresence>
-          {instate.game.id
-            ? pathId === instate.game.id.toString() && (
-                <GameDetail pathId={pathId} instate={instate} />
-              )
-            : ''}
+          {!pathId && instate.game.id && ''}
+
+          {pathId && !instate.game.id ? <Loading>loading...</Loading> : ''}
+          {instate.game.id && pathId === instate.game.id.toString() ? (
+            <GameDetail pathId={pathId} instate={instate} />
+          ) : (
+            ''
+          )}
         </AnimatePresence>
         <h2>Upcoming Games</h2>
         <Games>
@@ -108,7 +111,6 @@ const Loading = styled(motion.div)`
   color: white;
   font-weight: 700;
   letter-spacing: 2px;
-import { useReducer } from 'react/cjs/react.production.min';
 `;
 
 export default Home;

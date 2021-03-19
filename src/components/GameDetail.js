@@ -59,73 +59,56 @@ const GameDetail = ({ pathId, instate }) => {
   };
 
   //Data58751
-  const { screen, game, isLoading } = instate;
+  const { screen, game } = instate;
   return (
     <>
-      {isLoading ? (
-        <Loading>loading...</Loading>
-      ) : (
-        <CardShadow className="shadow" onClick={exitDetailHander}>
-          <Detail layoutId={pathId}>
-            <Stats>
-              <div className="rating">
-                <motion.h3 layoutId={`title ${pathId}`}>{game.name}</motion.h3>
-                <p>Rating: {game.rating}</p>
-                {getStars()}
-              </div>
-              <Info>
-                <h3>Platforms</h3>
-                <Platforms>
-                  {game.platforms.map((data) => (
-                    <img
-                      alt={data.platform.name}
-                      key={data.platform.id}
-                      src={getPlatform(data.platform.name)}
-                    ></img>
-                  ))}
-                </Platforms>
-              </Info>
-            </Stats>
-            <Media>
-              <motion.img
-                loading="lazy"
-                layoutId={`image ${pathId}`}
-                src={smallImage(game.background_image, 640)}
-                alt={game.background_image}
-              />
-            </Media>
-            <Description>
-              <p>{game.description_raw}</p>
-            </Description>
-            <div className="gallery" loading="lazy">
-              {screen.results.map((screen) => (
-                <img
-                  src={smallImage(screen.image, 640)}
-                  key={screen.id}
-                  alt={screen.image}
-                />
-              ))}
+      <CardShadow className="shadow" onClick={exitDetailHander}>
+        <Detail layoutId={pathId}>
+          <Stats>
+            <div className="rating">
+              <motion.h3 layoutId={`title ${pathId}`}>{game.name}</motion.h3>
+              <p>Rating: {game.rating}</p>
+              {getStars()}
             </div>
-          </Detail>
-        </CardShadow>
-      )}
+            <Info>
+              <h3>Platforms</h3>
+              <Platforms>
+                {game.platforms.map((data) => (
+                  <img
+                    alt={data.platform.name}
+                    key={data.platform.id}
+                    src={getPlatform(data.platform.name)}
+                  ></img>
+                ))}
+              </Platforms>
+            </Info>
+          </Stats>
+          <Media>
+            <motion.img
+              loading="lazy"
+              layoutId={`image ${pathId}`}
+              src={smallImage(game.background_image, 640)}
+              alt={game.background_image}
+            />
+          </Media>
+          <Description>
+            <p>{game.description_raw}</p>
+          </Description>
+          <div className="gallery" loading="lazy">
+            {screen.results.map((screen) => (
+              <img
+                src={smallImage(screen.image, 640)}
+                key={screen.id}
+                alt={screen.image}
+              />
+            ))}
+          </div>
+        </Detail>
+      </CardShadow>
     </>
   );
 };
 
-const Loading = styled(motion.div)`
-  width: 100%;
-  min-height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  position: fixed;
-  top: 0;
-  left: 0;
-  display: grid;
-  place-items: center;
-  color: white;
-  font-weight: 700;
-  letter-spacing: 2px;
-`;
 const CardShadow = styled(motion.div)`
   width: 100%;
   min-height: 100vh;
