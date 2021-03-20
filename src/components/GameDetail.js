@@ -1,7 +1,6 @@
 import React from 'react';
 //Styling and Animation
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
 //Redux
 import { useHistory } from 'react-router-dom';
 import { smallImage } from '../util';
@@ -66,7 +65,7 @@ const GameDetail = ({ pathId, instate }) => {
         <Detail layoutId={pathId}>
           <Stats>
             <div className="rating">
-              <motion.h3 layoutId={`title ${pathId}`}>{game.name}</motion.h3>
+              <h3 layoutId={`title ${pathId}`}>{game.name}</h3>
               <p>Rating: {game.rating}</p>
               {getStars()}
             </div>
@@ -84,7 +83,7 @@ const GameDetail = ({ pathId, instate }) => {
             </Info>
           </Stats>
           <Media>
-            <motion.img
+            <img
               loading="lazy"
               layoutId={`image ${pathId}`}
               src={smallImage(game.background_image, 640)}
@@ -109,7 +108,7 @@ const GameDetail = ({ pathId, instate }) => {
   );
 };
 
-const CardShadow = styled(motion.div)`
+const CardShadow = styled.div`
   width: 100%;
   min-height: 100vh;
   overflow-y: scroll;
@@ -129,7 +128,7 @@ const CardShadow = styled(motion.div)`
   }
 `;
 
-const Detail = styled(motion.div)`
+const Detail = styled.div`
   width: 80%;
   border-radius: 1rem;
   padding: 2rem 5rem;
@@ -146,7 +145,7 @@ const Detail = styled(motion.div)`
   }
 `;
 
-const Stats = styled(motion.div)`
+const Stats = styled.div`
   display: flex;
   align-items: center;
   text-align: center;
@@ -163,10 +162,10 @@ const Stats = styled(motion.div)`
     display: inline;
   }
 `;
-const Info = styled(motion.div)`
+const Info = styled.div`
   text-align: center;
 `;
-const Platforms = styled(motion.div)`
+const Platforms = styled.div`
   display: flex;
   justify-content: space-evenly;
   img {
@@ -179,14 +178,14 @@ const Platforms = styled(motion.div)`
   }
 `;
 
-const Media = styled(motion.div)`
+const Media = styled.div`
   margin-top: 5rem;
   img {
     width: 100%;
   }
 `;
 
-const Description = styled(motion.div)`
+const Description = styled.div`
   margin: 5rem 0rem;
 `;
 

@@ -1,10 +1,8 @@
-import { motion } from 'framer-motion';
 import React, { useReducer } from 'react';
 import { Link } from 'react-router-dom';
 //Styling and Animation
 import styled from 'styled-components';
 import { loadDetail } from '../actions/detailAction';
-import { AnimateSharedLayout, AnimatePresence } from 'framer-motion';
 // import { useDispatch } from 'react-redux';
 // import { loadDetail } from '../actions/detailAction';
 import { popup } from '../animations';
@@ -28,17 +26,13 @@ const Game = ({ name, released, image, id }) => {
   };
   return (
     <>
-      <AnimateSharedLayout type="crossfade">
-        <AnimatePresence>
-          {!pathId && <></>}
-          {pathId && !instate.game.id && <Loading>loading...</Loading>}
-          {instate.game.id && pathId === instate.game.id.toString() ? (
-            <GameDetail pathId={pathId} instate={instate} />
-          ) : (
-            ''
-          )}
-        </AnimatePresence>
-      </AnimateSharedLayout>
+      {!pathId && <></>}
+      {pathId && !instate.game.id && <Loading>loading...</Loading>}
+      {instate.game.id && pathId === instate.game.id.toString() ? (
+        <GameDetail pathId={pathId} instate={instate} />
+      ) : (
+        ''
+      )}
       <StyledGame
         variants={popup}
         initial="hidden"
@@ -47,9 +41,9 @@ const Game = ({ name, released, image, id }) => {
         onClick={() => loadDetailHandler(id)}
       >
         <Link to={`/game/${id}`}>
-          <motion.h3 layoutId={`title ${stringPathId}`}>{name}</motion.h3>
+          <h3 layoutId={`title ${stringPathId}`}>{name}</h3>
           <p>{released}</p>
-          <motion.img
+          <img
             layoutId={`image ${stringPathId}`}
             src={smallImage(image, 640)}
             alt={name}
@@ -60,7 +54,7 @@ const Game = ({ name, released, image, id }) => {
   );
 };
 
-const StyledGame = styled(motion.div)`
+const StyledGame = styled.div`
   min-height: 30vh;
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.2);
   text-align: center;
@@ -74,7 +68,7 @@ const StyledGame = styled(motion.div)`
     object-fit: cover;
   }
 `;
-const Loading = styled(motion.div)`
+const Loading = styled.div`
   width: 100%;
   min-height: 100vh;
   z-index: 2;

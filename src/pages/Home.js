@@ -1,4 +1,3 @@
-import { AnimateSharedLayout, motion } from 'framer-motion';
 //Styling and Animation
 import styled from 'styled-components';
 import { fadeIn } from '../animations';
@@ -11,26 +10,12 @@ const Home = ({ loading, state }) => {
   const { popular, newGames, upcoming } = state;
   return (
     <GameList variants={fadeIn} initial="hidden" animate="show">
-      <AnimateSharedLayout type="crossfade">
-        <h2>Upcoming Games</h2>
-        <Games>
-          {loading ? (
-            <Loading>loading...</Loading>
-          ) : (
-            upcoming.map((game) => (
-              <Game
-                name={game.name}
-                released={game.released}
-                id={game.id}
-                image={game.background_image}
-                key={game.id}
-              />
-            ))
-          )}
-        </Games>
-        <h2>Popular Games</h2>
-        <Games>
-          {popular.map((game) => (
+      <h2>Upcoming Games</h2>
+      <Games>
+        {loading ? (
+          <Loading>loading...</Loading>
+        ) : (
+          upcoming.map((game) => (
             <Game
               name={game.name}
               released={game.released}
@@ -38,33 +23,45 @@ const Home = ({ loading, state }) => {
               image={game.background_image}
               key={game.id}
             />
-          ))}
-        </Games>
-        <h2>New Games</h2>
-        <Games>
-          {newGames.map((game) => (
-            <Game
-              name={game.name}
-              released={game.released}
-              id={game.id}
-              image={game.background_image}
-              key={game.id}
-            />
-          ))}
-        </Games>
-      </AnimateSharedLayout>
+          ))
+        )}
+      </Games>
+      <h2>Popular Games</h2>
+      <Games>
+        {popular.map((game) => (
+          <Game
+            name={game.name}
+            released={game.released}
+            id={game.id}
+            image={game.background_image}
+            key={game.id}
+          />
+        ))}
+      </Games>
+      <h2>New Games</h2>
+      <Games>
+        {newGames.map((game) => (
+          <Game
+            name={game.name}
+            released={game.released}
+            id={game.id}
+            image={game.background_image}
+            key={game.id}
+          />
+        ))}
+      </Games>
     </GameList>
   );
 };
 
-const GameList = styled(motion.div)`
+const GameList = styled.div`
   padding: 0rem 5rem;
   h2 {
     padding: 5rem 0rem;
   }
 `;
 
-const Games = styled(motion.div)`
+const Games = styled.div`
   display: grid;
   @media only screen and (min-width: 540px) {
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
@@ -75,7 +72,7 @@ const Games = styled(motion.div)`
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
 `;
-const Loading = styled(motion.div)`
+const Loading = styled.div`
   width: 100%;
   min-height: 100vh;
   background: rgba(0, 0, 0, 0.5);

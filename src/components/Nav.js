@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion';
 import React, { useState, useReducer } from 'react';
 //Animation
 import styled from 'styled-components';
@@ -64,7 +63,7 @@ const Nav = () => {
   );
 };
 
-const H1 = styled(motion.div)`
+const H1 = styled.div`
   background: linear-gradient(to right, #ff2626, #ff0101);
   display: flex;
   align-items: center;
@@ -74,7 +73,7 @@ const H1 = styled(motion.div)`
   -webkit-text-fill-color: transparent;
 `;
 
-const StyledNav = styled(motion.nav)`
+const StyledNav = styled.nav`
   padding: 3rem 5rem;
   text-align: center;
   input {
@@ -95,7 +94,7 @@ const StyledNav = styled(motion.nav)`
   }
 `;
 
-const Logo = styled(motion.div)`
+const Logo = styled.div`
   display: flex;
   justify-content: center;
   padding: 1rem;
@@ -105,7 +104,7 @@ const Logo = styled(motion.div)`
     width: 2rem;
   }
 `;
-const Loading = styled(motion.div)`
+const Loading = styled.div`
   width: 100%;
   min-height: 100vh;
   background: rgba(0, 0, 0, 0.5);
@@ -119,7 +118,7 @@ const Loading = styled(motion.div)`
   font-weight: 700;
   letter-spacing: 2px;
 `;
-const Games = styled(motion.div)`
+const Games = styled.div`
   margin-top: 5em;
   display: grid;
   @media only screen and (min-width: 540px) {
