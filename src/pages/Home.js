@@ -1,38 +1,17 @@
-import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
-import React, { useReducer } from 'react';
-import { useLocation } from 'react-router-dom';
+import { AnimateSharedLayout, motion } from 'framer-motion';
 //Styling and Animation
 import styled from 'styled-components';
 import { fadeIn } from '../animations';
 import Game from '../components/Game';
-import GameDetail from '../components/GameDetail';
-import { loadDetail } from '../actions/detailAction';
-import detailReducer, { initialState } from '../reducers/detailReducer';
+import React from 'react';
 
 const Home = ({ loading, state }) => {
   //get the current location
-  const location = useLocation();
-  const pathId = location.pathname.split('/')[2];
-  const [instate, dispatch] = useReducer(detailReducer, initialState);
 
-  const loadDetailHandler = (e) => {
-    document.body.style.overflow = 'hidden';
-    loadDetail(e, dispatch);
-  };
   const { popular, newGames, upcoming } = state;
   return (
     <GameList variants={fadeIn} initial="hidden" animate="show">
       <AnimateSharedLayout type="crossfade">
-        <AnimatePresence>
-          {!pathId && instate.game.id && ''}
-
-          {pathId && !instate.game.id ? <Loading>loading...</Loading> : ''}
-          {instate.game.id && pathId === instate.game.id.toString() ? (
-            <GameDetail pathId={pathId} instate={instate} />
-          ) : (
-            ''
-          )}
-        </AnimatePresence>
         <h2>Upcoming Games</h2>
         <Games>
           {loading ? (
@@ -45,7 +24,6 @@ const Home = ({ loading, state }) => {
                 id={game.id}
                 image={game.background_image}
                 key={game.id}
-                onClick={() => loadDetailHandler(game.id)}
               />
             ))
           )}
@@ -59,7 +37,6 @@ const Home = ({ loading, state }) => {
               id={game.id}
               image={game.background_image}
               key={game.id}
-              onClick={() => loadDetailHandler(game.id)}
             />
           ))}
         </Games>
@@ -72,7 +49,6 @@ const Home = ({ loading, state }) => {
               id={game.id}
               image={game.background_image}
               key={game.id}
-              onClick={() => loadDetailHandler(game.id)}
             />
           ))}
         </Games>

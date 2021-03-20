@@ -1,33 +1,20 @@
-import { AnimatePresence, AnimateSharedLayout, motion } from 'framer-motion';
-
-import React, { useReducer, useState } from 'react';
+import { motion } from 'framer-motion';
+import React, { useState, useReducer } from 'react';
 //Animation
 import styled from 'styled-components';
-import { useLocation } from 'react-router-dom';
-
 //Redux and Routes
 import { fetchSearch } from '../actions/gamesAction';
 import { fadeIn } from '../animations';
-import Game from '../components/Game';
 import logo from '../img/logo.svg';
-// import { useDispatch } from 'react-redux';
+// import detailReducer, { initialState } from '../reducers/detailReducer';
 import gamesReducer from '../reducers/gamesReducer';
-import detailReducer, { initialState } from '../reducers/detailReducer';
-import { loadDetail } from '../actions/detailAction';
-import GameDetail from '../components/GameDetail';
+import Game from '../components/Game';
 
 const Nav = () => {
   const [state, dispatch] = useReducer(gamesReducer, {});
   const [textInput, setTextInput] = useState('');
   const [loading, isLoading] = useState(false);
-  const location = useLocation();
-  const pathId = location.pathname.split('/')[2];
-  const [instate, dispatch2] = useReducer(detailReducer, initialState);
 
-  const loadDetailHandler = (e) => {
-    document.body.style.overflow = 'hidden';
-    loadDetail(e, dispatch2);
-  };
   const inputHandler = (e) => {
     setTextInput(e.target.value);
   };
@@ -39,54 +26,40 @@ const Nav = () => {
   const clearSearched = () => {
     dispatch({ type: 'CLEAR_SEARCHED' });
   };
+  let { searched } = state;
+  searched = searched ?? [];
   return (
     <StyledNav variants={fadeIn} initial="hidden" animate="show">
-      <AnimateSharedLayout type="crossfade">
-        <AnimatePresence>
-          {!pathId && instate.game.id && ''}
-
-          {instate.game.id && pathId === instate.game.id.toString() ? (
-            <GameDetail pathId={pathId} instate={instate} />
-          ) : (
-            ''
-          )}
-        </AnimatePresence>
-        <Logo onClick={clearSearched}>
-          <img src={logo} alt="logo" />
-          <H1>Game Addict</H1>
-        </Logo>
-        <form className="search">
-          <input
-            value={textInput}
-            onChange={(e) => setTimeout(inputHandler(e), 1000)}
-            type="text"
-          />
-          <button onClick={(e) => submitSearch(e)} type="submit">
-            Search
-          </button>
-          {loading ? (
-            <Loading>loading...</Loading>
-          ) : state.searched && state.searched.length ? (
-            <div className="searched" style={{ marginTop: '4em' }}>
-              <h2 style={{ textAlign: 'left' }}>Searched Games</h2>
-              <Games style={{ marginTop: '4em' }}>
-                {state.searched.map((game) => (
-                  <Game
-                    name={game.name}
-                    released={game.released}
-                    id={game.id}
-                    image={game.background_image}
-                    key={game.id}
-                    onClick={() => loadDetailHandler(game.id)}
-                  />
-                ))}
-              </Games>
-            </div>
-          ) : (
-            ''
-          )}
-        </form>
-      </AnimateSharedLayout>
+      <Logo onClick={clearSearched}>
+        <img src={logo} alt="logo" />
+        <H1>Game Addict</H1>
+      </Logo>
+      <form className="search">
+        <input value={textInput} onChange={inputHandler} type="text" />
+        <button onClick={submitSearch} type="submit">
+          Search
+        </button>
+        {loading ? (
+          <Loading>loading...</Loading>
+        ) : searched.length ? (
+          <div className="searched">
+            <h2 style={{ marginTop: '1.5em' }}>Searched Games</h2>
+            <Games>
+              {searched.map((game) => (
+                <Game
+                  name={game.name}
+                  released={game.released}
+                  id={game.id}
+                  image={game.background_image}
+                  key={game.id}
+                />
+              ))}
+            </Games>
+          </div>
+        ) : (
+          ''
+        )}
+      </form>
     </StyledNav>
   );
 };
@@ -138,6 +111,7 @@ const Loading = styled(motion.div)`
   background: rgba(0, 0, 0, 0.5);
   position: fixed;
   top: 0;
+  z-index: 2;
   left: 0;
   display: grid;
   place-items: center;
@@ -146,6 +120,7 @@ const Loading = styled(motion.div)`
   letter-spacing: 2px;
 `;
 const Games = styled(motion.div)`
+  margin-top: 5em;
   display: grid;
   @media only screen and (min-width: 540px) {
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));

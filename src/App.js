@@ -22,7 +22,7 @@ function App() {
   return (
     <div className="App">
       <GlobalStyles />
-      <Route path={['/game/:id', '/']}>
+      <Route exact path={['/game/:id', '/']}>
         <Nav />
         <Home loading={loading} state={state} />
       </Route>
