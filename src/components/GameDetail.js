@@ -65,7 +65,7 @@ const GameDetail = ({ pathId, instate }) => {
         <Detail layoutId={pathId}>
           <Stats>
             <div className="rating">
-              <h3 layoutId={`title ${pathId}`}>{game.name}</h3>
+              <h3>{game.name}</h3>
               <p>Rating: {game.rating}</p>
               {getStars()}
             </div>
@@ -85,7 +85,6 @@ const GameDetail = ({ pathId, instate }) => {
           <Media>
             <img
               loading="lazy"
-              layoutId={`image ${pathId}`}
               src={smallImage(game.background_image, 640)}
               alt={game.background_image}
             />
