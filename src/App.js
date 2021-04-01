@@ -17,7 +17,7 @@ function App() {
   // const dispatch = useDispatch();
   useEffect(() => {
     loadGames(setLoading, dispatch);
-  }, [dispatch]);
+  }, []);
   // const { data, error } = useSWR(loadGames(setLoading));
   return (
     <div className="App">
