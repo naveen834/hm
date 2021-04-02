@@ -70,7 +70,7 @@ const Games = styled.div`
     grid-template-columns: 1fr;
   }
   @media only screen and (min-width: 540px) {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
   }
   grid-column-gap: 3rem;
   grid-row-gap: 5rem;
