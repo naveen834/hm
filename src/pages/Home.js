@@ -1,8 +1,8 @@
 //Styling and Animation
+import React from 'react';
 import styled from 'styled-components';
 import { fadeIn } from '../animations';
 import Game from '../components/Game';
-import React from 'react';
 
 const Home = ({ loading, state }) => {
   //get the current location
@@ -56,6 +56,9 @@ const Home = ({ loading, state }) => {
 
 const GameList = styled.div`
   padding: 0rem 5rem;
+  @media only screen and (max-width: 780px) {
+    padding: 0 2.5rem;
+  }
   h2 {
     padding: 5rem 0rem;
   }
@@ -63,14 +66,14 @@ const GameList = styled.div`
 
 const Games = styled.div`
   display: grid;
+  @media only screen and (min-width: 310px) {
+    grid-template-columns: 1fr;
+  }
   @media only screen and (min-width: 540px) {
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   }
   grid-column-gap: 3rem;
   grid-row-gap: 5rem;
-  @media only screen and (max-width: 310px) {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  }
 `;
 const Loading = styled.div`
   width: 100%;

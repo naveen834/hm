@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 //Router
 import { Route } from 'react-router-dom';
 import { loadGames } from './actions/gamesAction';

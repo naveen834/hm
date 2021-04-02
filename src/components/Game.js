@@ -1,17 +1,15 @@
 import React, { useReducer } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 //Styling and Animation
 import styled from 'styled-components';
 import { loadDetail } from '../actions/detailAction';
 // import { useDispatch } from 'react-redux';
 // import { loadDetail } from '../actions/detailAction';
 import { popup } from '../animations';
-import { useLocation } from 'react-router-dom';
 import GameDetail from '../components/GameDetail';
-
+import detailReducer, { initialState } from '../reducers/detailReducer';
 //Redux
 import { smallImage } from '../util';
-import detailReducer, { initialState } from '../reducers/detailReducer';
 
 const Game = ({ name, released, image, id }) => {
   const location = useLocation();

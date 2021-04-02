@@ -1,19 +1,19 @@
 import React from 'react';
-//Styling and Animation
-import styled from 'styled-components';
 //Redux
 import { useHistory } from 'react-router-dom';
-import { smallImage } from '../util';
-//IMAGES
-import playstation from '../img/playstation.svg';
-import steam from '../img/steam.svg';
-import xbox from '../img/xbox.svg';
-import nintendo from '../img/nintendo.svg';
+//Styling and Animation
+import styled from 'styled-components';
 import apple from '../img/apple.svg';
 import gamepad from '../img/gamepad.svg';
+import nintendo from '../img/nintendo.svg';
+//IMAGES
+import playstation from '../img/playstation.svg';
 //Star Images
 import starEmpty from '../img/star-empty.png';
 import starFull from '../img/star-full.png';
+import steam from '../img/steam.svg';
+import xbox from '../img/xbox.svg';
+import { smallImage } from '../util';
 const GameDetail = ({ pathId, instate }) => {
   const history = useHistory();
 

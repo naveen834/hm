@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import /*webpackPrefetch:true*/ App from './App';
 //REDUX SETUP
 import { BrowserRouter } from 'react-router-dom';
+import /*webpackPrefetch:true*/ App from './App';
 
 ReactDOM.render(
   <React.StrictMode>

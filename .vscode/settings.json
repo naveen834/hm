@@ -1,8 +1,0 @@
-{
-  "debug.console.fontSize": 20,
-  "editor.fontSize": 20,
-  "terminal.integrated.fontSize": 20,
-  "editor.autoClosingBrackets": "always",
-  "editor.autoClosingQuotes": "always",
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
-}
