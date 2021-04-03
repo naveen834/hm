@@ -4,7 +4,6 @@ import { fadeIn } from '../animations';
 import Game from '../components/Game';
 
 const Upcoming = ({ loading, upcoming }) => {
-  console.log(loading, upcoming);
   return (
     <GameList variants={fadeIn} initial="hidden" animate="show">
       <h2>Upcoming Games</h2>

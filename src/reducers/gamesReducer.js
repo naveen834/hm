@@ -11,6 +11,7 @@ const gamesReducer = (state, action) => {
       return {
         ...state,
         popular: action.payload.popular,
+        upcoming: action.payload.upcoming,
         newGames: action.payload.newGames,
       };
     case 'FETCH_UPCOME':
