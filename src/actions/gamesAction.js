@@ -9,10 +9,18 @@ import {
 export const loadGames = async (setLoading, dispatch) => {
   //FETCH AXIOS
   setLoading(true);
-  const popularData = fetch(popularGamesURL());
-  const newGamesData = fetch(newGamesURL());
-  const upcomingData = fetch(upcomingGamesURL());
-  await Promise.all([popularData, newGamesData, upcomingData])
+  fetch(upcomingGamesURL())
+    .then((resp) => resp.json())
+    .then((res) => {
+      setLoading(false);
+      dispatch({
+        type: 'FETCH_UPCOME',
+        payload: {
+          upcoming: res.results,
+        },
+      });
+    })
+    .then(() => Promise.all([fetch(newGamesURL()), fetch(popularGamesURL())]))
     .then((responses) => {
       return Promise.all(
         responses.map(function (response) {
@@ -20,14 +28,12 @@ export const loadGames = async (setLoading, dispatch) => {
         })
       );
     })
-    .then(async (results) => {
-      setLoading(false);
+    .then((results) => {
       dispatch({
         type: 'FETCH_GAMES',
         payload: {
-          popular: await results[0].results,
-          upcoming: await results[2].results,
-          newGames: await results[1].results,
+          popular: results[1].results,
+          newGames: results[0].results,
         },
       });
     });

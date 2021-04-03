@@ -10,6 +10,7 @@ import Nav from './components/Nav';
 // const Home = React.lazy(() => import('./pages/Home'));
 import Home from './pages/Home';
 import gamesReducer, { initState } from './reducers/gamesReducer';
+import Upcoming from './pages/Upcoming';
 
 function App() {
   const [loading, setLoading] = useState(false);
@@ -18,13 +19,14 @@ function App() {
   useEffect(() => {
     loadGames(setLoading, dispatch);
   }, []);
-  // const { data, error } = useSWR(loadGames(setLoading));
+
   return (
     <div className="App">
       <GlobalStyles />
       <Route exact path={['/game/:id', '/']}>
         <Nav />
-        <Home loading={loading} state={state} />
+        <Upcoming loading={loading} upcoming={state.upcoming} />
+        <Home state={state} />
       </Route>
     </div>
   );
