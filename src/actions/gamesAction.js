@@ -20,10 +20,7 @@ export const loadGames = async (setLoading, dispatch) => {
         },
       });
     })
-    .then(
-      async () =>
-        await Promise.all([fetch(newGamesURL()), fetch(popularGamesURL())])
-    )
+    .then(() => Promise.all([fetch(newGamesURL()), fetch(popularGamesURL())]))
     .then((responses) => {
       return Promise.all(
         responses.map(function (response) {
