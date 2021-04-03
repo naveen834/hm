@@ -20,16 +20,16 @@ export const loadGames = async (setLoading, dispatch) => {
         })
       );
     })
-    .then((results) => {
+    .then(async (results) => {
+      setLoading(false);
       dispatch({
         type: 'FETCH_GAMES',
         payload: {
-          popular: results[0].results,
-          upcoming: results[2].results,
-          newGames: results[1].results,
+          popular: await results[0].results,
+          upcoming: await results[2].results,
+          newGames: await results[1].results,
         },
       });
-      setLoading(false);
     });
   // );
 };
