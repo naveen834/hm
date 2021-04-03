@@ -4,40 +4,38 @@ import styled from 'styled-components';
 import { fadeIn } from '../animations';
 import Game from '../components/Game';
 
-const Home = ({ loading, state }) => {
+const Home = ({ popular, newGames }) => {
   //get the current location
-
-  const { popular, newGames } = state;
 
   return (
     <GameList variants={fadeIn} initial="hidden" animate="show">
-      <h2>Popular Games</h2>
+      {popular && popular.length ? <h2>Popular Games</h2> : ''}
       <Games>
-        {popular &&
-          popular.length &&
-          popular.map((game) => (
-            <Game
-              name={game.name}
-              released={game.released}
-              id={game.id}
-              image={game.background_image}
-              key={game.id}
-            />
-          ))}
+        {popular && popular.length
+          ? popular.map((game) => (
+              <Game
+                name={game.name}
+                released={game.released}
+                id={game.id}
+                image={game.background_image}
+                key={game.id}
+              />
+            ))
+          : ''}
       </Games>
-      <h2>New Games</h2>
+      {newGames && newGames.length ? <h2>New Games</h2> : ''}
       <Games>
-        {newGames &&
-          newGames.length &&
-          newGames.map((game) => (
-            <Game
-              name={game.name}
-              released={game.released}
-              id={game.id}
-              image={game.background_image}
-              key={game.id}
-            />
-          ))}
+        {newGames && newGames.length
+          ? newGames.map((game) => (
+              <Game
+                name={game.name}
+                released={game.released}
+                id={game.id}
+                image={game.background_image}
+                key={game.id}
+              />
+            ))
+          : ''}
       </Games>
     </GameList>
   );

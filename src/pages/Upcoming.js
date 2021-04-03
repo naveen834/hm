@@ -6,13 +6,14 @@ import Game from '../components/Game';
 const Upcoming = ({ loading, upcoming }) => {
   return (
     <GameList variants={fadeIn} initial="hidden" animate="show">
-      <h2>Upcoming Games</h2>
+      {upcoming && upcoming.length ? <h2>Upcoming Games</h2> : ''}
       <Games>
         {loading ? (
-          <Loading>loading...</Loading>
-        ) : (
-          upcoming &&
-          upcoming.length &&
+          <>
+            <h4>Patience is What makes a Gamer awesome</h4>
+            <Loading>loading...</Loading>
+          </>
+        ) : upcoming && upcoming.length ? (
           upcoming.map((game) => (
             <Game
               name={game.name}
@@ -22,6 +23,8 @@ const Upcoming = ({ loading, upcoming }) => {
               key={game.id}
             />
           ))
+        ) : (
+          ''
         )}
       </Games>
     </GameList>

@@ -26,7 +26,7 @@ function App() {
       <Route exact path={['/game/:id', '/']}>
         <Nav />
         <Upcoming loading={loading} upcoming={state.upcoming} />
-        <Home state={state} />
+        <Home popular={state.popular} newGames={state.newGames} />
       </Route>
     </div>
   );
